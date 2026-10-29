@@ -1,0 +1,21 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/cormorant-garamond/700.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import './styles.css';
+import './experience.css';
+import { WorkspaceProvider } from './state';
+import { Shell, Heading, ButtonLink } from './components';
+import { Overview, DomainLanding } from './public-pages';
+import { ResearchHome, ConfirmDomain, Setup, Review, Progress, Library, Settings, Account, ResearchError } from './research-pages';
+import { Graph, Results } from './result-pages';
+import { ExperienceLanding, DomainsPage } from './experience-public';
+import { Dashboard, NewDecision, DecisionResearch, AgentCouncil } from './decision-pages';
+import { Evaluation, Consensus, FinalDecision, MyDecisions, Insights } from './decision-outcomes';
+class ErrorBoundary extends React.Component<{children:React.ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true};}render(){return this.state.failed?<main className="error-boundary"><h1>Something interrupted this workspace.</h1><p>Your saved browser data has not been cleared.</p><button className="button primary" onClick={()=>location.reload()}>Reload workspace</button></main>:this.props.children;}}
+createRoot(document.getElementById('root')!).render(<React.StrictMode><ErrorBoundary><BrowserRouter><WorkspaceProvider><Routes><Route path="/" element={<ExperienceLanding/>}/><Route path="/illustrated-overview" element={<Overview/>}/><Route path="/domains/:key" element={<DomainLanding/>}/><Route element={<Shell/>}><Route path="/research" element={<Dashboard/>}/><Route path="/research/explore" element={<ResearchHome/>}/><Route path="/new-decision" element={<NewDecision/>}/><Route path="/domains" element={<DomainsPage/>}/><Route path="/insights" element={<Insights/>}/><Route path="/decision/research" element={<DecisionResearch/>}/><Route path="/decision/council" element={<AgentCouncil/>}/><Route path="/decision/evaluate" element={<Evaluation/>}/><Route path="/decision/consensus" element={<Consensus/>}/><Route path="/decision/final" element={<FinalDecision/>}/><Route path="/confirm-domain" element={<ConfirmDomain/>}/><Route path="/setup/:key" element={<Setup/>}/><Route path="/review" element={<Review/>}/><Route path="/progress" element={<Progress/>}/><Route path="/results" element={<Results/>}/><Route path="/results/:tab" element={<Results/>}/><Route path="/followup" element={<Results/>}/><Route path="/graph" element={<Graph/>}/><Route path="/library" element={<MyDecisions/>}/><Route path="/settings" element={<Settings/>}/><Route path="/signin" element={<Account/>}/><Route path="/signup" element={<Account signup/>}/><Route path="/research-error" element={<ResearchError/>}/><Route path="*" element={<><Heading title="This page could not be found." description="Return to the workspace to continue your research."/><ButtonLink primary to="/research">Open research workspace</ButtonLink></>}/></Route></Routes></WorkspaceProvider></BrowserRouter></ErrorBoundary></React.StrictMode>);

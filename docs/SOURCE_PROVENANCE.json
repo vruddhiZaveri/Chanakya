@@ -1,0 +1,303 @@
+{
+  "source_commit": "27f292aee03d789cdb36e320f4af2225004db18a",
+  "saved_site_version": 3,
+  "source_match": "All src, public, original configuration, lockfile and tests retained byte-for-byte.",
+  "unchanged_files": [
+    {
+      "path": "docs/FIGMA_HANDOFF.md",
+      "sha256": "092f07902b807d699f625813e34ff8a3a1e7dbf433d3e85b34e81f155038bddc"
+    },
+    {
+      "path": "docs/REDESIGN_AUDIT.md",
+      "sha256": "4a4f4ff16e28e10a34f7f7b479f3e446627f59499fc9f510c1c1ea75eff7c1b1"
+    },
+    {
+      "path": "index.html",
+      "sha256": "5c5e040e5975a688412d2f25bdb7b2cc0631b384155cc3ac1761c00420efd6e9"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "136da4d2cfdbae56bb60a105ab0206711fb442776925e1de81809db27eabca83"
+    },
+    {
+      "path": "public/agent-output-schema.json",
+      "sha256": "38138fb7d0838a0efec6e1e7d5e8bef3af98a842978ba243af71f968c3642b23"
+    },
+    {
+      "path": "public/assets/arogya-plaque.svg",
+      "sha256": "0405b383186f446917c7a5d533df4c293db3c38cf7dcac42e83de981c206d52b"
+    },
+    {
+      "path": "public/assets/arogya-topic-0.svg",
+      "sha256": "7a502f2eac938aa1149d68cfdfd121ec7f6112f3d25fea757f8f2cb3fb21fb4a"
+    },
+    {
+      "path": "public/assets/arogya-topic-1.svg",
+      "sha256": "e0420842e0f0273016d490d4b32b869b419962a8558c675a34dd868bfe2103bd"
+    },
+    {
+      "path": "public/assets/arogya-topic-2.svg",
+      "sha256": "cb8214c44708e8ffc7b3c52e5ac739fd4fa1da2b574df30aa5e5e17a38819bc9"
+    },
+    {
+      "path": "public/assets/arogya.jpg",
+      "sha256": "a765d58a2642767b6834b324118e1e768cf3f32777508857d3b7554ff4d3b8d2"
+    },
+    {
+      "path": "public/assets/artha-plaque.svg",
+      "sha256": "47fd79438cf0f95056dd33b29597b6f232ad115d1c8380f531f3af81358f4f1c"
+    },
+    {
+      "path": "public/assets/artha-topic-0.svg",
+      "sha256": "7a502f2eac938aa1149d68cfdfd121ec7f6112f3d25fea757f8f2cb3fb21fb4a"
+    },
+    {
+      "path": "public/assets/artha-topic-1.svg",
+      "sha256": "e0420842e0f0273016d490d4b32b869b419962a8558c675a34dd868bfe2103bd"
+    },
+    {
+      "path": "public/assets/artha-topic-2.svg",
+      "sha256": "cb8214c44708e8ffc7b3c52e5ac739fd4fa1da2b574df30aa5e5e17a38819bc9"
+    },
+    {
+      "path": "public/assets/artha.jpg",
+      "sha256": "83f5ba9698906be384bb8b2c289eb5a723f9d3ee51418aa8a632afe1754350df"
+    },
+    {
+      "path": "public/assets/council.jpg",
+      "sha256": "4483bf2ca30b5e1bd3ddb5ddbf618bbebbc17ac9d97382d0affb3464526c7404"
+    },
+    {
+      "path": "public/assets/domains.jpeg",
+      "sha256": "fb09091c0c110df18d37f8d4bcb81b340690b19baeb7cfcc4af5290ebda39e9c"
+    },
+    {
+      "path": "public/assets/gati-plaque.svg",
+      "sha256": "49245e3d683a1ff733115e96121abd8e78d6071b4929378438362c61894af95c"
+    },
+    {
+      "path": "public/assets/gati-topic-0.svg",
+      "sha256": "7a502f2eac938aa1149d68cfdfd121ec7f6112f3d25fea757f8f2cb3fb21fb4a"
+    },
+    {
+      "path": "public/assets/gati-topic-1.svg",
+      "sha256": "e0420842e0f0273016d490d4b32b869b419962a8558c675a34dd868bfe2103bd"
+    },
+    {
+      "path": "public/assets/gati-topic-2.svg",
+      "sha256": "cb8214c44708e8ffc7b3c52e5ac739fd4fa1da2b574df30aa5e5e17a38819bc9"
+    },
+    {
+      "path": "public/assets/gati.jpg",
+      "sha256": "d086966affd132ea2a17aea4d21214dd3b82219e842ae1236a4c5261ba36d5d0"
+    },
+    {
+      "path": "public/assets/grantha-plaque.svg",
+      "sha256": "2c1387d950780298e46d3160e9bcb49fe190738b77edd54e2f37e876e3347097"
+    },
+    {
+      "path": "public/assets/grantha-topic-0.svg",
+      "sha256": "7a502f2eac938aa1149d68cfdfd121ec7f6112f3d25fea757f8f2cb3fb21fb4a"
+    },
+    {
+      "path": "public/assets/grantha-topic-1.svg",
+      "sha256": "e0420842e0f0273016d490d4b32b869b419962a8558c675a34dd868bfe2103bd"
+    },
+    {
+      "path": "public/assets/grantha-topic-2.svg",
+      "sha256": "cb8214c44708e8ffc7b3c52e5ac739fd4fa1da2b574df30aa5e5e17a38819bc9"
+    },
+    {
+      "path": "public/assets/grantha.jpg",
+      "sha256": "4715f3691716d19ad2c56210b7e8b45e5a9bd75482516810cce75d85b283e1b3"
+    },
+    {
+      "path": "public/assets/graph-connectors.svg",
+      "sha256": "e340faff279d783bde86220902359972b16feea2ad9faed28fb5377866000e3b"
+    },
+    {
+      "path": "public/assets/kit/arogya-dark.png",
+      "sha256": "b97a5194424382f96e6b4a0488869d221a5586d939cf75fbad22518c2e2d9bb5"
+    },
+    {
+      "path": "public/assets/kit/artha-dark.png",
+      "sha256": "dce927c2a376abd3a7389f6fdfe08e2604b8ca4d23d5e6b8f3e6ddf3a31d54dd"
+    },
+    {
+      "path": "public/assets/kit/gati-dark.png",
+      "sha256": "b9f720a1b1cea48c763654ae159d1dc538dbaa276d24c7ab4f86fd266e17ff40"
+    },
+    {
+      "path": "public/assets/kit/grantha-dark.png",
+      "sha256": "734817bd77f483ec6f59a68b8308c8436569f2762db497367a1bfc26690db9e9"
+    },
+    {
+      "path": "public/assets/kit/nivesh-dark.png",
+      "sha256": "415fdc544db43b43771a9a9e877a49ccb9d342c628dacc0a420b5782589efbfc"
+    },
+    {
+      "path": "public/assets/kit/nyaya-dark.png",
+      "sha256": "67597dbc1148c2467cddbf704af7200e79e5b8f8582002f8116074afed29baf2"
+    },
+    {
+      "path": "public/assets/kit/sabha-dark.png",
+      "sha256": "742c9a8d6e7f8f29c5045d3cca29f72385b12e46c3a00e3471ab9bcea9b94760"
+    },
+    {
+      "path": "public/assets/logo.jpg",
+      "sha256": "a4abce35cdf9f03e025f86720f2b8043c6cea445a8ad6bf0495d006ff576f719"
+    },
+    {
+      "path": "public/assets/nav-icon.svg",
+      "sha256": "0a45907950cecf46ff198185f82df97bff837b5579cc95aaa2baf965f3b44954"
+    },
+    {
+      "path": "public/assets/nivesh-plaque.svg",
+      "sha256": "c4f5e7a0921e5e8ab54b06f1e8ef3ff228620479edba73beb88e44dabaa96f0e"
+    },
+    {
+      "path": "public/assets/nivesh-topic-0.svg",
+      "sha256": "7a502f2eac938aa1149d68cfdfd121ec7f6112f3d25fea757f8f2cb3fb21fb4a"
+    },
+    {
+      "path": "public/assets/nivesh-topic-1.svg",
+      "sha256": "e0420842e0f0273016d490d4b32b869b419962a8558c675a34dd868bfe2103bd"
+    },
+    {
+      "path": "public/assets/nivesh-topic-2.svg",
+      "sha256": "cb8214c44708e8ffc7b3c52e5ac739fd4fa1da2b574df30aa5e5e17a38819bc9"
+    },
+    {
+      "path": "public/assets/nivesh.jpg",
+      "sha256": "281b4f80e0c919a3a5096cc22b0c63e017804b57339538e500b75d439158cf49"
+    },
+    {
+      "path": "public/assets/nyaya-plaque.svg",
+      "sha256": "61f9c6115df3e3d05794049fa657e1bd312d82ab2b315352d62dcc260f0db49a"
+    },
+    {
+      "path": "public/assets/nyaya-topic-0.svg",
+      "sha256": "7a502f2eac938aa1149d68cfdfd121ec7f6112f3d25fea757f8f2cb3fb21fb4a"
+    },
+    {
+      "path": "public/assets/nyaya-topic-1.svg",
+      "sha256": "e0420842e0f0273016d490d4b32b869b419962a8558c675a34dd868bfe2103bd"
+    },
+    {
+      "path": "public/assets/nyaya-topic-2.svg",
+      "sha256": "cb8214c44708e8ffc7b3c52e5ac739fd4fa1da2b574df30aa5e5e17a38819bc9"
+    },
+    {
+      "path": "public/assets/nyaya.jpg",
+      "sha256": "7916776f7924943e9bd5660f4401609bc25ed392e39fd614af03f3887749fd3d"
+    },
+    {
+      "path": "public/assets/sparkle.svg",
+      "sha256": "756af5b02a9cb5dd5f6108b33ee104d7c181a2b86c3a60e46a5838985716bb9d"
+    },
+    {
+      "path": "src/components.tsx",
+      "sha256": "3abadd6f88d8b350dced1c23cf3f349756968b81587b5b8655221293de1d4b7c"
+    },
+    {
+      "path": "src/decision-model.ts",
+      "sha256": "b0560e0d64ad1058aecef8dc52b2c858394b48f46bdab45a89c24e312bf7d73b"
+    },
+    {
+      "path": "src/decision-outcomes.tsx",
+      "sha256": "3dc254f67397f72cbd9a658a8bfc6638e14978e0342635f3042907f7b041ce48"
+    },
+    {
+      "path": "src/decision-pages.tsx",
+      "sha256": "e9e04816f23cf8ff3d6cc54a9db07b56d02035fd4949644f2b9434959d1dfa80"
+    },
+    {
+      "path": "src/dialogs.tsx",
+      "sha256": "97857b8676fb018c429d2936a5f5e025d804788a81d060a5437a2629dc7e5f61"
+    },
+    {
+      "path": "src/domains.ts",
+      "sha256": "34c17d07162837c686be970531a65e8c777a321725a7766992cff62c48f92715"
+    },
+    {
+      "path": "src/experience-public.tsx",
+      "sha256": "f146996b22659c472392642401001688f83ce3d72790935bbf7b0057654b82c2"
+    },
+    {
+      "path": "src/experience-shell.tsx",
+      "sha256": "6e0ccd9509a057637d9032c9f8e1e5dbfc6e3313550b5197f25de8bb430f0b13"
+    },
+    {
+      "path": "src/experience-visuals.tsx",
+      "sha256": "730aaaa2a8cc02810403fa3fc854a7cec92f875b453bce43800a2ebaf7a2f050"
+    },
+    {
+      "path": "src/experience.css",
+      "sha256": "51f1afefc3d366ae45eddbc96a39563adc867be9e4cf785e52e1d32f435be650"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "f3b4a7610a9aeccadc67b2cd075d920a22817854dbd1e7b4bcb18357b723f652"
+    },
+    {
+      "path": "src/model.ts",
+      "sha256": "c9029c126da9ec5ca20fac24cce1042894e0112e45468fe63ac22ed78b532ded"
+    },
+    {
+      "path": "src/public-pages.tsx",
+      "sha256": "6f429ed2ec1407037a79f61ab099d1ed02f05ab8c81bb33d7d6b720c9567a6d5"
+    },
+    {
+      "path": "src/research-pages.tsx",
+      "sha256": "22a099cba64a00b7a4141980bdbdfcf1621b15d0588a95267d6fb368fcc5b041"
+    },
+    {
+      "path": "src/result-pages.tsx",
+      "sha256": "1724ff938971bed93998a96acc252e7191467c50031695da867cd1aa03269b74"
+    },
+    {
+      "path": "src/state.tsx",
+      "sha256": "b17d1786c394f36a090f8edf6a3de9222cffb53eb2a6ea6d725dfde1523f4274"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "7cbde3d15d5914a7e843195f83900566460c2b24ed8b565fad70b5e140b8c13d"
+    },
+    {
+      "path": "tests/decision.test.mjs",
+      "sha256": "25cad5034dabb82b0e73c8075fe31127cfcbae6e25e0327f13311d00226c33f7"
+    },
+    {
+      "path": "tests/domain.test.mjs",
+      "sha256": "5050e3f88a6f0cbae99fb07177f09f20eb0f24c313243e310fcd60a363b90b32"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "58bc9c790dbe2119c34919372bf671d96324e3c81feb9390a2a911ef80ac81c4"
+    },
+    {
+      "path": "tsconfig.test.json",
+      "sha256": "746ab67b9d188efee4695976d47c5f7e5c34b8b6b641432187dfcaf678bd705f"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "ef14bdbc58511c8eebfba3f4c85400eaa776e05c17f3db907005279c7933a704"
+    }
+  ],
+  "export_only_changes": [
+    "README.md: Windows local guide; original retained in docs/ORIGINAL_README.md",
+    "package.json: add typecheck and preview scripts; dependencies unchanged",
+    ".gitignore: add environment-file exclusions",
+    "New documentation and .env.example"
+  ],
+  "excluded": [
+    ".git",
+    ".openai deployment binding",
+    "node_modules",
+    "dist",
+    ".test-build",
+    "build caches",
+    "secrets",
+    "browser-local user data"
+  ]
+}
