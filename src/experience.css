@@ -23,3 +23,40 @@
 @media(max-width:767px){.editorial-gallery,.experience-content .full-gallery{grid-template-rows:320px 260px 260px 240px}.gallery-piece.piece-5{grid-column:1/-1}.gallery-piece.piece-5 img{width:65%;height:100%}}
 
 .evidence-map-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.evidence-map-controls>input{min-width:0;width:48%;font-size:12px}.evidence-map-controls>div{display:flex;gap:4px}.evidence-map-controls button{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:5px;padding:8px;min-height:40px;min-width:40px;font-size:11px}.evidence-map-viewport{overflow:auto;max-height:650px}.source-comparison{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:20px 0}.source-comparison section{min-width:0}.source-comparison label{display:grid;gap:8px;font-size:11px}.source-comparison .mono{display:block;font-size:8px;color:var(--gold);margin:25px 0 15px}.source-comparison h3{font-size:25px}.source-comparison blockquote{font-size:12px;line-height:1.9;margin:18px 0;color:var(--text)}.source-comparison p,.source-comparison a{font-size:10px;color:var(--muted)}@media(max-width:767px){.source-comparison{grid-template-columns:1fr}}
+
+/* Larger Gati illustration on desktop */
+@media (min-width: 1024px) {
+  .gallery-piece.piece-5 .gallery-art > img {
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 22%
+    );
+  }
+}
+
+/* Hide the white edges of the Gati artwork */
+@media (min-width: 1024px) {
+  .gallery-piece.piece-5 .gallery-art > img {
+    width: 76%;
+    margin-right: -3.04%;
+    clip-path: inset(0 4% 0 10%);
+  }
+}
+
+/* Clear borderless Gati artwork */
+@media (min-width: 1024px) {
+  .gallery-piece.piece-5 .gallery-art > img {
+    width: 70%;
+    height: 100%;
+    margin-right: 0;
+    clip-path: none;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
