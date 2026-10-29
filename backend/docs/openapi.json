@@ -1,0 +1,533 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Chanakya Local Backend",
+    "description": "Increment 1: real single-agent baseline. No retrieval, council, probability engine or persistence yet.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/models/status": {
+      "get": {
+        "summary": "Model Status",
+        "operationId": "model_status_api_v1_models_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/baseline": {
+      "post": {
+        "summary": "Baseline",
+        "operationId": "baseline_api_v1_baseline_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BaselineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaselineResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Assessment": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "maxLength": 6000,
+            "minLength": 1,
+            "title": "Answer"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,40}$"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Source Ids"
+          },
+          "limitations": {
+            "items": {
+              "type": "string",
+              "maxLength": 400,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 6,
+            "minItems": 1,
+            "title": "Limitations"
+          },
+          "insufficient_evidence": {
+            "type": "boolean",
+            "title": "Insufficient Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "answer",
+          "source_ids",
+          "limitations",
+          "insufficient_evidence"
+        ],
+        "title": "Assessment"
+      },
+      "BaselineRequest": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "direct",
+              "source_grounded"
+            ],
+            "title": "Mode",
+            "default": "direct"
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 10,
+            "title": "Question"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SuppliedSource"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Sources"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "BaselineRequest"
+      },
+      "BaselineResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "direct",
+              "source_grounded"
+            ],
+            "title": "Mode"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "model_digest": {
+            "type": "string",
+            "title": "Model Digest"
+          },
+          "digest_basis": {
+            "type": "string",
+            "title": "Digest Basis",
+            "default": "installed_registry_before_call"
+          },
+          "assessment": {
+            "$ref": "#/components/schemas/Assessment"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/ValidationSummary"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/RuntimeConfig"
+          },
+          "model_attempts": {
+            "type": "integer",
+            "title": "Model Attempts"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/Usage"
+          },
+          "elapsed_seconds": {
+            "type": "number",
+            "title": "Elapsed Seconds"
+          },
+          "advisory_notice": {
+            "type": "string",
+            "title": "Advisory Notice",
+            "default": "Single-agent baseline only; not a verified research conclusion or a human-reviewed decision."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id",
+          "mode",
+          "model",
+          "model_digest",
+          "assessment",
+          "validation",
+          "configuration",
+          "model_attempts",
+          "usage",
+          "elapsed_seconds"
+        ],
+        "title": "BaselineResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LoadedModel": {
+        "properties": {
+          "loaded": {
+            "type": "boolean",
+            "title": "Loaded",
+            "default": false
+          },
+          "reported_size_bytes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported Size Bytes"
+          },
+          "reported_vram_bytes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported Vram Bytes"
+          },
+          "context_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Tokens"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "LoadedModel"
+      },
+      "ModelStatus": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "installed": {
+            "type": "boolean",
+            "title": "Installed"
+          },
+          "digest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Digest"
+          },
+          "quantization": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantization"
+          },
+          "parameter_size": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parameter Size"
+          },
+          "loaded": {
+            "$ref": "#/components/schemas/LoadedModel"
+          },
+          "ready_to_attempt": {
+            "type": "boolean",
+            "title": "Ready To Attempt"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": "Installation/readiness metadata does not establish inference quality or hardware identity."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model",
+          "installed",
+          "digest",
+          "quantization",
+          "parameter_size",
+          "loaded",
+          "ready_to_attempt"
+        ],
+        "title": "ModelStatus"
+      },
+      "RuntimeConfig": {
+        "properties": {
+          "context_tokens": {
+            "type": "integer",
+            "title": "Context Tokens"
+          },
+          "output_tokens": {
+            "type": "integer",
+            "title": "Output Tokens"
+          },
+          "temperature": {
+            "type": "integer",
+            "const": 0,
+            "title": "Temperature",
+            "default": 0
+          },
+          "prompt_version": {
+            "type": "string",
+            "title": "Prompt Version",
+            "default": "baseline-v1"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "context_tokens",
+          "output_tokens"
+        ],
+        "title": "RuntimeConfig"
+      },
+      "SuppliedSource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,40}$",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "excerpt": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Excerpt"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "excerpt"
+        ],
+        "title": "SuppliedSource"
+      },
+      "Usage": {
+        "properties": {
+          "input_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input Tokens"
+          },
+          "output_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Tokens"
+          },
+          "total_model_seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Model Seconds"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input_tokens",
+          "output_tokens",
+          "total_model_seconds"
+        ],
+        "title": "Usage"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "ValidationSummary": {
+        "properties": {
+          "schema_valid": {
+            "type": "boolean",
+            "const": true,
+            "title": "Schema Valid",
+            "default": true
+          },
+          "citation_ids_valid": {
+            "type": "boolean",
+            "const": true,
+            "title": "Citation Ids Valid",
+            "default": true
+          },
+          "semantic_support_verified": {
+            "type": "boolean",
+            "const": false,
+            "title": "Semantic Support Verified",
+            "default": false
+          },
+          "source_authenticity_verified": {
+            "type": "boolean",
+            "const": false,
+            "title": "Source Authenticity Verified",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ValidationSummary"
+      }
+    }
+  }
+}

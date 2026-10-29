@@ -4,6 +4,10 @@ This is the original React/TypeScript source used for the approved Chanakya Site
 
 **Dark mode only. No API key or backend is required to run the existing frontend.** Live AI research is not implemented. Imported agent outputs and manual ratings work; earlier report/process screens are explicitly illustrative.
 
+## Local backend — Increment 1
+
+A FastAPI/Ollama single-agent baseline now lives in `backend/`. See [backend/README.md](backend/README.md) for Python 3.12 setup, real local-model requests and tests. It does not yet provide retrieval, multi-agent deliberation, inference probabilities or persistence, and the approved frontend is not connected to it. No cloud API key is required. The frontend/export instructions below remain applicable.
+
 ## 1. Prerequisites on Windows 11
 
 Install Node.js **24.x**, which includes npm, and Visual Studio Code. This export was checked using Node 24.22.1 and npm 11.9.0 on Linux; running it on Windows is not independently verified. Use Node 24.x for the closest match to the checked environment. Git is optional. The application uses modern browser APIs, so use a current Chrome, Edge or Firefox.
@@ -101,7 +105,7 @@ Your browser stores decisions locally. Uploaded files are in IndexedDB. A new lo
 | HTML title and metadata | `index.html` |
 | Tooling and dependencies | `package.json`, `package-lock.json`, `vite.config.ts`, `tsconfig*.json` |
 
-There is no `services/api.ts` or backend to export: the current app has no API client. Do not add a fake service merely to make the folder structure look complete. See `docs/ARCHITECTURE.md` and `docs/INTEGRATIONS_AND_MISSING.md` for actual data flow and future server integration boundaries.
+There is no frontend `services/api.ts` yet: the current React app has no API client. The new `backend/` foundation is separate; see its README for its actual implemented endpoints. Do not add a fake service merely to make the folder structure look complete. See `docs/ARCHITECTURE.md` and `docs/INTEGRATIONS_AND_MISSING.md` for actual data flow and future server integration boundaries.
 
 ## 7. Troubleshooting
 
