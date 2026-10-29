@@ -11,6 +11,18 @@ class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
 
+class ErrorPayload(StrictModel):
+    code: str
+    message: str
+    retryable: bool
+    details: list[dict] | None = None
+
+
+class ErrorResponse(StrictModel):
+    error: ErrorPayload
+    request_id: str
+
+
 class Mode(str, Enum):
     DIRECT = "direct"
     SOURCE_GROUNDED = "source_grounded"

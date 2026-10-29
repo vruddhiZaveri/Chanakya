@@ -11,8 +11,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.core.config import Settings
 from app.llm.ollama import OllamaProvider
 from app.main import create_app
+from app.db.migrate import upgrade_database
 
 DIGEST = "a" * 64
+
+
+@pytest.fixture(autouse=True)
+def isolated_database(tmp_path, monkeypatch):
+    path = tmp_path / "test.sqlite3"
+    monkeypatch.setenv("CHANAKYA_DATABASE_PATH", str(path))
+    upgrade_database(path)
+    return path
 
 
 def envelope(content=None, **changes):

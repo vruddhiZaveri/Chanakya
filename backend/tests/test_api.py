@@ -12,7 +12,8 @@ def test_health_is_not_an_inference_claim(client):
     response = client.get("/api/v1/health")
     assert response.status_code == 200
     assert response.json()["model_readiness_checked"] is False
-    assert response.json()["persistence"] == "not_implemented"
+    assert response.json()["persistence"] == "local_sqlite"
+    assert response.json()["storage_ready"] is True
     assert response.headers["x-request-id"]
 
 
@@ -173,7 +174,7 @@ def test_direct_mode_cannot_fabricate_citations(api_factory):
 
 def test_openapi_documents_actual_endpoints(client):
     paths = client.get("/openapi.json").json()["paths"]
-    assert set(paths) == {"/api/v1/health", "/api/v1/models/status", "/api/v1/baseline"}
+    assert {"/api/v1/health", "/api/v1/models/status", "/api/v1/baseline", "/api/v1/sessions"} <= set(paths)
 
 
 def test_digest_pin_detects_changed_model(api_factory, payload):

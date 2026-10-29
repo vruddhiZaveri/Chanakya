@@ -22,7 +22,18 @@ class Settings(BaseSettings):
     max_model_attempts: int = Field(default=2, ge=1, le=2)
     max_request_bytes: int = Field(default=16384, ge=1024, le=65536)
     log_level: Literal["INFO", "WARNING", "ERROR"] = "INFO"
-    allowed_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    allowed_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:8000", "http://127.0.0.1:8000"]
+    database_path: Path = Path(__file__).resolve().parents[2] / "data" / "chanakya.sqlite3"
+
+    @field_validator("database_path")
+    @classmethod
+    def local_database(cls, value: Path) -> Path:
+        root = Path(__file__).resolve().parents[2]
+        value = value if value.is_absolute() else root / value
+        value = value.resolve()
+        if value.suffix != ".sqlite3" or str(value).startswith(("//", "\\\\")):
+            raise ValueError("Use a local .sqlite3 file, not a network share")
+        return value
 
     @field_validator("ollama_base_url")
     @classmethod

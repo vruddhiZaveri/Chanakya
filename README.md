@@ -4,9 +4,9 @@ This is the original React/TypeScript source used for the approved Chanakya Site
 
 **Dark mode only. No API key or backend is required to run the existing frontend.** Live AI research is not implemented. Imported agent outputs and manual ratings work; earlier report/process screens are explicitly illustrative.
 
-## Local backend — Increment 1
+## Local backend — Increment 2
 
-A FastAPI/Ollama single-agent baseline now lives in `backend/`. See [backend/README.md](backend/README.md) for Python 3.12 setup, real local-model requests and tests. It does not yet provide retrieval, multi-agent deliberation, inference probabilities or persistence, and the approved frontend is not connected to it. No cloud API key is required. The frontend/export instructions below remain applicable.
+A FastAPI/Ollama single-agent baseline now lives in `backend/`. See [backend/README.md](backend/README.md) for Python 3.12 setup, real local-model requests and tests. It now adds local SQLite decision sessions and immutable typed hypothesis histories. It does not yet provide retrieval, multi-agent deliberation or inference probabilities, and the approved frontend is not connected to it. No cloud API key is required. The frontend/export instructions below remain applicable.
 
 ## 1. Prerequisites on Windows 11
 

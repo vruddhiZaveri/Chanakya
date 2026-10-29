@@ -14,8 +14,11 @@ from app.core.errors import BackendError, error_body
 from app.llm.ollama import OllamaProvider
 from app.llm.provider import ModelProvider
 from app.middleware import LocalRequestMiddleware
-from app.schemas import BaselineRequest, BaselineResponse, ModelStatus
+from app.schemas import BaselineRequest, BaselineResponse, ErrorResponse, ModelStatus
 from app.services.baseline import BaselineService
+from app.db.database import Database
+from app.decisions.repository import DecisionRepository
+from app.decisions.routes import router as decisions_router
 
 
 def create_app(settings: Settings | None = None, provider_factory: Callable | None = None) -> FastAPI:
@@ -24,18 +27,26 @@ def create_app(settings: Settings | None = None, provider_factory: Callable | No
     @asynccontextmanager
     async def lifespan(app):
         logging.basicConfig(level=getattr(logging, settings.log_level), format="%(message)s")
+        database = Database(settings.database_path)
+        app.state.database = database
+        app.state.decisions = DecisionRepository(database)
         # One shared local HTTP pool; no proxy inheritance, redirects or model download.
         async with httpx.AsyncClient(base_url=settings.ollama_base_url, trust_env=False,
                                      follow_redirects=False, limits=httpx.Limits(max_connections=4)) as client:
             provider: ModelProvider = provider_factory(client, settings) if provider_factory else OllamaProvider(client, settings)
             app.state.provider = provider
             app.state.baseline = BaselineService(provider, settings)
-            yield
+            try:
+                yield
+            finally:
+                database.close()
 
-    app = FastAPI(title="Chanakya Local Backend", version="0.1.0", lifespan=lifespan,
-                  description="Increment 1: real single-agent baseline. No retrieval, council, probability engine or persistence yet.")
+    app = FastAPI(title="Chanakya Local Backend", version="0.2.0", lifespan=lifespan,
+                  responses={status: {"model": ErrorResponse} for status in (400, 403, 404, 409, 413, 415, 422, 429, 500, 502, 503, 504)},
+                  description="Increment 2: saved decision sessions and immutable, human-authored typed hypotheses. Single-agent baseline retained. No retrieval, council or probability engine yet.")
+    app.include_router(decisions_router)
     app.add_middleware(CORSMiddleware, allow_origins=settings.allowed_origins,
-                       allow_methods=["GET", "POST"], allow_headers=["Content-Type"],
+                       allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type"],
                        expose_headers=["X-Request-ID"], allow_credentials=False)
     app.add_middleware(LocalRequestMiddleware, settings=settings)
 
@@ -60,9 +71,10 @@ def create_app(settings: Settings | None = None, provider_factory: Callable | No
                             headers={"X-Request-ID": request.state.request_id})
 
     @app.get("/api/v1/health")
-    async def health():
-        return {"status": "ok", "increment": 1, "model_readiness_checked": False,
-                "persistence": "not_implemented", "research_execution": "single_agent_baseline_only"}
+    def health(request: Request):
+        return {"status": "ok", "increment": 2, "model_readiness_checked": False,
+                "persistence": "local_sqlite", "storage_ready": request.app.state.database.ready(),
+                "research_execution": "single_agent_baseline_only"}
 
     @app.get("/api/v1/models/status", response_model=ModelStatus)
     async def model_status(request: Request):
