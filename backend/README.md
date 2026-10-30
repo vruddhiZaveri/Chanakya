@@ -1,3 +1,9 @@
+# Chanakya local backend — Increment 3
+
+The current installation, upload contract, limits, evidence APIs and inline Windows smoke test are in [docs/INCREMENT_3.md](docs/INCREMENT_3.md). This adds local document extraction and reproducible lexical retrieval while preserving the existing baseline and saved typed state. The frontend is unchanged.
+
+The Increment 2 guide below is retained as reference for the existing session/hypothesis and baseline APIs. Its earlier test counts and scope descriptions are historical; use the Increment 3 guide for the current update.
+
 # Chanakya local backend — Increment 2
 
 FastAPI + local Ollama + SQLite, with SQLAlchemy 2.x and Alembic migrations. The approved frontend is unchanged and is not connected to this API yet.

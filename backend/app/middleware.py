@@ -1,4 +1,5 @@
 import json
+import re
 import logging
 import time
 from urllib.parse import urlsplit
@@ -50,8 +51,11 @@ class LocalRequestMiddleware:
                 await fail("origin_not_allowed", "This browser origin is not allowed.", 403)
                 return
             if scope["method"] in {"POST", "PUT", "PATCH"}:
-                if headers.get(b"content-type", b"").split(b";", 1)[0].strip().lower() != b"application/json":
-                    await fail("unsupported_media_type", "Send an application/json body.", 415)
+                upload = scope["method"] == "POST" and re.fullmatch(r"/api/v1/sessions/[0-9a-fA-F-]{36}/documents", scope["path"])
+                permitted = {b"text/plain", b"text/markdown", b"application/pdf"} if upload else {b"application/json"}
+                body_limit = 1048576 if upload else self.settings.max_request_bytes
+                if headers.get(b"content-type", b"").split(b";", 1)[0].strip().lower() not in permitted:
+                    await fail("unsupported_media_type", "Use the documented Content-Type for this endpoint.", 415)
                     return
                 try:
                     length = int(headers.get(b"content-length", b"0"))
@@ -61,7 +65,7 @@ class LocalRequestMiddleware:
                 if length < 0:
                     await fail("invalid_content_length", "Invalid request length.", 400)
                     return
-                if length > self.settings.max_request_bytes:
+                if length > body_limit:
                     await fail("request_too_large", "Request exceeds the permitted byte limit.", 413)
                     return
                 chunks, size = [], 0
@@ -71,7 +75,7 @@ class LocalRequestMiddleware:
                         return
                     chunk = message.get("body", b"")
                     size += len(chunk)
-                    if size > self.settings.max_request_bytes:
+                    if size > body_limit:
                         await fail("request_too_large", "Request exceeds the permitted byte limit.", 413)
                         return
                     chunks.append(chunk)

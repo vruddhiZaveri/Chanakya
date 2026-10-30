@@ -17,6 +17,8 @@ from app.middleware import LocalRequestMiddleware
 from app.schemas import BaselineRequest, BaselineResponse, ErrorResponse, ModelStatus
 from app.services.baseline import BaselineService
 from app.db.database import Database
+from app.evidence.repository import EvidenceRepository
+from app.evidence.routes import router as evidence_router
 from app.decisions.repository import DecisionRepository
 from app.decisions.routes import router as decisions_router
 
@@ -29,6 +31,7 @@ def create_app(settings: Settings | None = None, provider_factory: Callable | No
         logging.basicConfig(level=getattr(logging, settings.log_level), format="%(message)s")
         database = Database(settings.database_path)
         app.state.database = database
+        app.state.evidence = EvidenceRepository(database)
         app.state.decisions = DecisionRepository(database)
         # One shared local HTTP pool; no proxy inheritance, redirects or model download.
         async with httpx.AsyncClient(base_url=settings.ollama_base_url, trust_env=False,
@@ -41,10 +44,11 @@ def create_app(settings: Settings | None = None, provider_factory: Callable | No
             finally:
                 database.close()
 
-    app = FastAPI(title="Chanakya Local Backend", version="0.2.0", lifespan=lifespan,
+    app = FastAPI(title="Chanakya Local Backend", version="0.3.0", lifespan=lifespan,
                   responses={status: {"model": ErrorResponse} for status in (400, 403, 404, 409, 413, 415, 422, 429, 500, 502, 503, 504)},
-                  description="Increment 2: saved decision sessions and immutable, human-authored typed hypotheses. Single-agent baseline retained. No retrieval, council or probability engine yet.")
+                  description="Increment 3: bounded local document ingestion and immutable lexical evidence retrieval snapshots. No semantic retrieval, OCR, multi-agent council or probability engine yet.")
     app.include_router(decisions_router)
+    app.include_router(evidence_router)
     app.add_middleware(CORSMiddleware, allow_origins=settings.allowed_origins,
                        allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type"],
                        expose_headers=["X-Request-ID"], allow_credentials=False)
@@ -72,7 +76,7 @@ def create_app(settings: Settings | None = None, provider_factory: Callable | No
 
     @app.get("/api/v1/health")
     def health(request: Request):
-        return {"status": "ok", "increment": 2, "model_readiness_checked": False,
+        return {"status": "ok", "increment": 3, "model_readiness_checked": False,
                 "persistence": "local_sqlite", "storage_ready": request.app.state.database.ready(),
                 "research_execution": "single_agent_baseline_only"}
 
