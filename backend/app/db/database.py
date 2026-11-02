@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError, OperationalError, TimeoutError as Poo
 
 from app.core.errors import BackendError
 
-SCHEMA_REVISION = "0002_evidence"
+SCHEMA_REVISION = "0003_answers"
 
 
 def make_engine(path: Path):

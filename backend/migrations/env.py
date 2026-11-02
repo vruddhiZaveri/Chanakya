@@ -2,6 +2,7 @@ from alembic import context
 
 from app.db.tables import metadata
 from app.evidence import tables
+from app.answers import tables as answer_tables
 
 connection = context.config.attributes.get("connection")
 if connection is None:
