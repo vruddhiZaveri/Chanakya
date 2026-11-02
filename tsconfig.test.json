@@ -1,1 +1,20 @@
-{"compilerOptions":{"target":"ES2022","lib":["ES2022","DOM"],"module":"NodeNext","moduleResolution":"NodeNext","strict":true,"skipLibCheck":true,"outDir":".test-build"},"include":["src/model.ts","src/domains.ts"]}
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": ".test-build"
+  },
+  "include": [
+    "src/model.ts",
+    "src/domains.ts",
+    "src/server-model.ts",
+    "src/local-api.ts"
+  ]
+}

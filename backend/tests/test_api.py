@@ -235,3 +235,10 @@ def test_unexpected_failure_has_sanitized_error(api_factory, payload):
 def test_chunked_oversized_body_is_bounded(client):
     response = client.post("/api/v1/baseline", content=(b"x" * 9000 for _ in range(2)), headers={"content-type": "application/json"})
     assert response.status_code == 413
+
+
+def test_local_frontend_5174_origin_can_create_saved_decision(client):
+    for origin in ['http://localhost:5174','http://127.0.0.1:5174']:
+        response=client.post('/api/v1/sessions',json={'query':'Is full deployment approved?'},headers={'Origin':origin})
+        assert response.status_code==201,response.text
+        assert response.headers['access-control-allow-origin']==origin

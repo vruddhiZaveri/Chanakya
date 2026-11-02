@@ -1,12 +1,12 @@
 # Chanakya — run the approved frontend locally
 
-This is the original React/TypeScript source used for the approved Chanakya Site, exported from commit `27f292aee03d789cdb36e320f4af2225004db18a` (saved Site version 3). The UI source, styles and public assets are unchanged. This export adds local setup scripts and documentation only. It does not modify or redeploy the hosted Site.
+This is the original React/TypeScript source used for the approved Chanakya Site, exported from commit `27f292aee03d789cdb36e320f4af2225004db18a` (saved Site version 3). The approved UI and assets are retained; local backend integration now adds saved document research and cited answers. It does not modify or redeploy the hosted Site.
 
-**Dark mode only. No API key or backend is required to run the existing frontend.** Live AI research is not implemented. Imported agent outputs and manual ratings work; earlier report/process screens are explicitly illustrative.
+**Dark mode only. No API key or backend is required to run the existing frontend.** The local frontend now calls the backend for saved document research and cited answers. Imported agent outputs and manual ratings work; earlier report/process screens are explicitly illustrative.
 
-## Local backend — Increment 3
+## Local frontend/backend integration — 5
 
-A FastAPI/Ollama single-agent baseline now lives in `backend/`. See [backend/README.md](backend/README.md) for Python 3.12 setup, real local-model requests and tests. It adds local SQLite decision sessions, immutable typed hypotheses, document ingestion and traceable lexical evidence retrieval. See backend/docs/INCREMENT_3.md for the current guide. Multi-agent deliberation and inference probabilities are not implemented, and the approved frontend is not connected to the API. No cloud API key is required. The frontend/export instructions below remain applicable.
+A FastAPI/Ollama single-agent baseline now lives in `backend/`. See [backend/README.md](backend/README.md) for Python 3.12 setup, real local-model requests and tests. It adds local SQLite decision sessions, immutable typed hypotheses, document ingestion, traceable lexical evidence retrieval and saved document-grounded single-agent answers. See backend/docs/INCREMENT_4.md for the current guide. Multi-agent deliberation and inference probabilities are not implemented, and the approved frontend connects through the local Vite API proxy. No cloud API key is required. See [the integration guide](docs/FRONTEND_BACKEND_INTEGRATION_5.md) for current ports, API setup and the browser walkthrough. Older export instructions below are retained as reference; the current frontend command uses port 5174.
 
 ## 1. Prerequisites on Windows 11
 

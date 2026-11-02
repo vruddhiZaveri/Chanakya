@@ -1,3 +1,11 @@
+# Local frontend/backend integration 5
+
+The approved dark frontend now connects to the existing Increment 4 APIs. See [the integration guide](../docs/FRONTEND_BACKEND_INTEGRATION_5.md) for localhost:5174 origins, running both servers, testing and the real-Qwen browser walkthrough. No schema or dependency change is needed. Historical notes below describe earlier scopes.
+
+# Chanakya local backend — Increment 4
+
+Current guide: [docs/INCREMENT_4.md](docs/INCREMENT_4.md). Adds saved document-grounded Qwen answers and idempotent replay. No frontend changes or new dependencies. The earlier guides below describe the existing APIs; their scope and test counts are historical.
+
 # Chanakya local backend — Increment 3
 
 The current installation, upload contract, limits, evidence APIs and inline Windows smoke test are in [docs/INCREMENT_3.md](docs/INCREMENT_3.md). This adds local document extraction and reproducible lexical retrieval while preserving the existing baseline and saved typed state. The frontend is unchanged.
